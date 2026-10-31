@@ -1,0 +1,196 @@
+SKT
+Copyright 2026 Google LLC / SKT contributors
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License in the LICENSE file distributed with this work or at
+https://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+
+SKT is a product name for this distribution. SKT is a redesign of, and
+inspired by, the design of three open-source tools. Their licenses are
+preserved in full, and their sources are ported in-tree:
+
+  * Apache License 2.0 -- Google Harness 2 (core agent runtime)
+  * MIT License       -- ScienceBuddy (impro/buddy)
+  * MIT License       -- RecursiveMAS (impro/mas)
+
+See the "INSPIRED DESIGN OF THESE TOOLS" section below for what was taken
+from each tool and why. Bundled license texts:
+
+  * Apache-2.0: LICENSE (root of this distribution)
+  * MIT:        impro/buddy/LICENSE (ScienceBuddy)
+  * MIT:        impro/mas/LICENSE   (RecursiveMAS)
+
+BUNDLED THIRD-PARTY NOTICES
+===========================
+
+This distribution includes the following third-party components.
+Their license texts are reproduced in full in the directories noted.
+
+1. Zod
+   Copyright (c) 2025 Colin McDonnell
+   Licensed under the MIT License.
+   Location in this distribution: third_party/zod
+   License text: third_party/zod/LICENSE
+   Project site: https://zod.dev
+
+2. jsonrepair
+   Copyright (c) 2022 Jos de Jong
+   Licensed under the MIT License.
+   Location in this distribution: third_party/jsonrepair
+   License text: third_party/jsonrepair/LICENSE
+   Project site: https://github.com/josdejong/jsonrepair
+
+3. PyYAML
+   Copyright (c) 2017-2021 Ingy dot Net
+   Copyright (c) 2018-2021 Kirill Simonov
+   Licensed under the MIT License.
+   Location in this distribution: third_party/pyyaml
+   License text: third_party/pyyaml/LICENSE
+   Project site: https://github.com/yaml/pyyaml
+
+4. python-dotenv
+   Copyright (c) 2014 Saurabh Kumar
+   Licensed under the BSD-3-Clause License.
+   Location in this distribution: third_party/python-dotenv
+   License text: third_party/python-dotenv/LICENSE
+   Project site: https://github.com/theskumar/python-dotenv
+
+5. cli-table3
+   Copyright (c) 2022 Nodeca Team
+   Licensed under the MIT License.
+   Location in this distribution: third_party/cli-table3
+   License text: third_party/cli-table3/LICENSE
+   Project site: https://github.com/cli-table/cli-table3
+
+6. Inquirer.js
+   Copyright (c) 2022 Simon Boudrias
+   Licensed under the MIT License.
+   Location in this distribution: third_party/inquirer
+   License text: third_party/inquirer/LICENSE
+   Project site: https://github.com/SBoudrias/Inquirer.js
+
+7. The tmux integration contains portions derived from the tmuxp project,
+   Copyright (c) 2012-2024 Tony Narnton, licensed under the ISC License.
+   Location in this distribution: third_party/tmuxp
+   License text: third_party/tmuxp/LICENSE
+
+INSPIRED DESIGN OF THESE TOOLS
+==============================
+
+SKT is a redesign whose design is inspired by Harness 2, ScienceBuddy, and
+RecursiveMAS. Each was used for what it does best, and each was ported into
+this distribution in full so the result is one installable Python package
+(`pip install .`) with a single CLI (`skt`), one config layer, one auth
+store, and one sandbox/policy model shared across all three capabilities.
+
+The reason for combining them: no single upstream tool provided a secure
+coding-agent core, a reproducible multi-framework ML experiment platform,
+and a recursive multi-agent reasoning/training system at the same time.
+Harness 2 supplied the agent runtime and its policy-first security model,
+ScienceBuddy supplied the benchmark and distributed-training platform, and
+RecursiveMAS supplied the recursive multi-agent reasoning loops and their
+GRPO trainer. SKT merges them under one name while keeping every upstream
+license, copyright, and attribution intact.
+
+1. Harness 2 (Google) -- Apache License 2.0
+   Upstream tree: harness2-main
+   License text: LICENSE (root of this distribution)
+   Ported into this distribution as: the `impro/` core runtime -- including
+   `impro.core` (agent loop, hooks, sandbox, permissions, budgets, streaming,
+   tool registry, state), `impro.cli`, `impro.substrate`, `impro.benchmarks`,
+   `impro.adapter`, `impro.config`, `impro.preflight`, and `impro.install`.
+   Why we used it:
+   - policy-first agent security, "policy-only" by default, with OS-level
+     enforcement strictly opt-in;
+   - a lifecycle-hook runtime that wraps every tool execution
+     (PreToolUse -> execute -> PostToolUse) plus approval, audit, and
+     secret-redaction plumbing;
+   - deterministic, testable multi-agent orchestration with token and
+     rollout budgets, streaming tool-arg accumulation, and compaction;
+   - a mature CLI/TUI and session management (rollouts, resume, fork).
+   SKT keeps this Apache-2.0 core intact: the `Copyright 2026 Google LLC`
+   source headers, the Apache-2.0 root LICENSE, and functional protocol keys
+   (`harness`, `harness.py`) are preserved. Only user-facing product text is
+   branded as SKT.
+
+2. ScienceBuddy -- MIT License
+   Copyright (c) 2026 XShuhan
+   Upstream tree: ScienceBuddy-main
+   License text: impro/buddy/LICENSE
+   Ported into this distribution as: the entire `impro.buddy` package (all
+   51 upstream modules under ScienceBuddy `src/`), the `impro buddy` /
+   `impro-buddy` / `impro-buddy-experiment` CLI commands, `IMPRO_BUDDY_*`
+   environment variables, run configs, and the `scripts/buddy_train.py`
+   launcher.
+   Why we used it:
+   - reproducible benchmark runs over standard datasets (MMLU, GPQA,
+     HellaSwag, Math500, AIME, LiveCodeBench, ...) with model-as-judge and
+     pass@k scoring;
+   - multi-backend serving (VLLM, SGLang, Megatron) with health checks and
+     rollout control;
+   - Ray-based distributed training with placement groups, autoscaling, and
+     multi-node topology support;
+   - structured run configs, run persistence, and auto-generated HTML
+     reporting.
+   The MIT license and the `impro-buddy` package/CLI name are preserved as
+   published.
+
+3. RecursiveMAS -- MIT License
+   Upstream tree: RecursiveMAS-main
+   License text: impro/mas/LICENSE
+   Ported into this distribution as: the entire `impro.mas` package (all 29
+   upstream Python modules under RecursiveMAS `inference/` and `train/`),
+   the `impro mas` CLI (`infer`, `train-inner`, `train-outer`), the
+   `MAS_*` / `HF_*` / `IMPRO_MAS_*` environment variables, the bundled
+   `requirements.txt`, and the bundled MedQA evaluation dataset
+   (`impro/mas/inference/dataset/medqa.json`).
+   Why we used it:
+   - recursive, multi-turn agent reasoning with inner (agent) and outer
+     (meta-agent) loops and prompt-level recursion control;
+   - a GRPO trainer for multi-agent systems (inner and outer policy
+     updates) with per-node LLM clients;
+   - built-in evaluation over a Hugging Face dataset (MedQA) using Hugging
+     Face models (e.g. `google/gemma-3-4b-it`).
+   Upstream Hugging Face dataset and model repository IDs
+   (`RecursiveMAS/...`, `google/gemma-3-4b-it`) are functional references and
+   are preserved unchanged.
+
+ATTRIBUTION OF BUNDLED MODELS AND DATASETS
+=========================================
+
+This distribution uses, but does not bundle, the following models and
+datasets from the Hugging Face Hub:
+
+1. Dataset: RecursiveMAS/R1_0528_filtered
+   Used by: impro/mas/inference, impro/mas/train
+   This dataset is based on deepseek-ai/DeepSeek-R1-0528, which is licensed
+   under the MIT License. The original dataset was obtained from
+   https://huggingface.co/datasets/deepseek-ai/DeepSeek-R1-0528.
+
+2. Dataset: RecursiveMAS/math_dataset
+   Used by: impro/mas/train (GRPO training tasks)
+
+3. Dataset: openbmb/M-A-P-Open-Reasoning-Corpus-Math
+   Used by: impro/mas/train (reasoning task pool)
+
+4. Dataset: google/genesis-docstring-python
+   Used by: impro/mas/train (code task pool)
+
+5. Model: RecursiveMAS/gemma-3-4b-it-unsloth-bnb-4bit
+   Based on google/gemma-3-4b-it (Google DeepMind), quantized to 4-bit with
+   Unsloth. Used by: impro/mas/inference, impro/mas/train.
+
+6. Model: RecursiveMAS/gemma-3-12b-it-unsloth-bnb-4bit
+   Based on gemma-3-12b-it (Google DeepMind), quantized to 4-bit with
+   Unsloth. Used by: impro/mas/train (GRPO training backbone).
+
+Model weights are not included in this source distribution. The Hugging
+Face command-line tool must be used to download them, and users must agree
+to the model license on Hugging Face before downloading.

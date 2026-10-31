@@ -1,0 +1,8 @@
+include LICENSE NOTICE .env.example
+recursive-include harness *
+recursive-include configs *
+recursive-include tasks *
+recursive-include third_party *
+recursive-include dependencies *
+recursive-include scripts *.py *.sh
+global-exclude __pycache__ *.py[cod] *.log

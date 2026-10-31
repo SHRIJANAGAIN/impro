@@ -1,0 +1,16 @@
+[console_scripts]
+impro = impro.cli:main
+impro-adapt = impro.cli.run_sweep:main
+impro-bridge = impro.cli.bridge:main
+impro-buddy = impro.buddy.cli:main
+impro-buddy-experiment = impro.buddy.coevolve.experiment:main
+impro-check = impro.cli.check:main
+impro-demo = impro.cli.demo:main
+impro-judge = impro.cli.judge:main
+impro-mas = impro.mas.cli:main
+impro-mas-infer = impro.mas.inference.run:main
+impro-mas-train-inner = impro.mas.train.train_inner:main
+impro-mas-train-outer = impro.mas.train.train_outer:main
+impro-report = impro.cli.report:main
+impro-setup = impro.cli.setup:main
+skt = impro.cli:main

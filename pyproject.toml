@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "impro"
+version = "0.1.0"
+description = "SKT recursive harness improvement for any coding agent"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.optional-dependencies]
+render = ["openpyxl>=3.1,<4", "python-pptx>=1,<2"]
+bridge = ["litellm[proxy]==1.95.0", "fastapi==0.139.2", "google-auth==2.56.3"]
+buddy = ["jsonschema>=4", "pyarrow>=19", "pandas", "httpx", "psutil"]
+# SkyRL is a pinned external submodule; install it from the upstream checkout.
+buddy-train = ["ray[default]", "wandb", "transformers", "torch", "psutil"]
+mas = [
+    "torch>=2.6",
+    "transformers>=4.50",
+    "datasets>=3",
+    "huggingface-hub>=0.30",
+    "tokenizers>=0.21",
+    "safetensors>=0.4",
+    "sentencepiece>=0.2",
+    "accelerate>=1.2",
+    "tqdm>=4.66",
+    "numpy>=2",
+    "PyYAML>=6",
+    "requests>=2.32",
+    "packaging>=24",
+    "filelock>=3.16",
+    "python-dateutil>=2.9",
+    "sympy>=1.13",
+]
+test = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+impro = "impro.cli:main"
+impro-adapt = "impro.cli.run_sweep:main"
+impro-judge = "impro.cli.judge:main"
+impro-report = "impro.cli.report:main"
+impro-setup = "impro.cli.setup:main"
+impro-check = "impro.cli.check:main"
+impro-demo = "impro.cli.demo:main"
+impro-bridge = "impro.cli.bridge:main"
+impro-buddy = "impro.buddy.cli:main"
+impro-buddy-experiment = "impro.buddy.coevolve.experiment:main"
+impro-mas = "impro.mas.cli:main"
+impro-mas-infer = "impro.mas.inference.run:main"
+impro-mas-train-inner = "impro.mas.train.train_inner:main"
+impro-mas-train-outer = "impro.mas.train.train_outer:main"
+skt = "impro.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["impro*"]
+
+[tool.setuptools.package-data]
+"impro.buddy" = ["LICENSE"]
+"impro.mas" = ["LICENSE", "requirements.txt"]
+"impro.mas.inference" = ["dataset/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["third_party", "dependencies"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# The RecursiveMAS port keeps upstream module layout and diagnostics.
+"impro/mas/**" = ["E402", "F841"]

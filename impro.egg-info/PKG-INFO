@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: impro
+Version: 0.1.0
+Summary: SKT recursive harness improvement for any coding agent
+License-Expression: Apache-2.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.12
+License-File: LICENSE
+License-File: NOTICE
+Provides-Extra: render
+Requires-Dist: openpyxl<4,>=3.1; extra == "render"
+Requires-Dist: python-pptx<2,>=1; extra == "render"
+Provides-Extra: bridge
+Requires-Dist: litellm[proxy]==1.95.0; extra == "bridge"
+Requires-Dist: fastapi==0.139.2; extra == "bridge"
+Requires-Dist: google-auth==2.56.3; extra == "bridge"
+Provides-Extra: buddy
+Requires-Dist: jsonschema>=4; extra == "buddy"
+Requires-Dist: pyarrow>=19; extra == "buddy"
+Requires-Dist: pandas; extra == "buddy"
+Requires-Dist: httpx; extra == "buddy"
+Requires-Dist: psutil; extra == "buddy"
+Provides-Extra: buddy-train
+Requires-Dist: ray[default]; extra == "buddy-train"
+Requires-Dist: wandb; extra == "buddy-train"
+Requires-Dist: transformers; extra == "buddy-train"
+Requires-Dist: torch; extra == "buddy-train"
+Requires-Dist: psutil; extra == "buddy-train"
+Provides-Extra: mas
+Requires-Dist: torch>=2.6; extra == "mas"
+Requires-Dist: transformers>=4.50; extra == "mas"
+Requires-Dist: datasets>=3; extra == "mas"
+Requires-Dist: huggingface-hub>=0.30; extra == "mas"
+Requires-Dist: tokenizers>=0.21; extra == "mas"
+Requires-Dist: safetensors>=0.4; extra == "mas"
+Requires-Dist: sentencepiece>=0.2; extra == "mas"
+Requires-Dist: accelerate>=1.2; extra == "mas"
+Requires-Dist: tqdm>=4.66; extra == "mas"
+Requires-Dist: numpy>=2; extra == "mas"
+Requires-Dist: PyYAML>=6; extra == "mas"
+Requires-Dist: requests>=2.32; extra == "mas"
+Requires-Dist: packaging>=24; extra == "mas"
+Requires-Dist: filelock>=3.16; extra == "mas"
+Requires-Dist: python-dateutil>=2.9; extra == "mas"
+Requires-Dist: sympy>=1.13; extra == "mas"
+Provides-Extra: test
+Requires-Dist: pytest>=8; extra == "test"
+Requires-Dist: ruff>=0.6; extra == "test"
+Dynamic: license-file
